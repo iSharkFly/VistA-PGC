@@ -1,0 +1,159 @@
+$TXT Created by TOPPENBERG,KEVIN at FAMILY PHYSICANS OF GREENEVILLE (KIDS) on 11/22/10
+=============================================================================
+Run Date: 11/22/10		     Designation: TMG*1.0*17
+Package : TMG - FAMILY PHYSICANS OF GREENEVILLE  Priority: ROUTINE
+Version : 1       SEQ #17                       Status: Released
+=============================================================================
+
+Associated patches: None
+
+Subject:  1. Adds pediatric growth charts into an unmodified CPRS (as well as TMG-CPRS)
+	  2. Provides Text Objects to access percentiles for pediatric height, weight,
+               head circumference, and BMI
+
+Category:  New features in CPRS (all work in unmodified CPRS)
+
+Note: This is a replacement for TMG Kids patch Version 1.0  Seq 16. This includes an update of the
+      javascript library to version 2.3 and corrects a few bugs that existed in Seq 16 (e.g. Labels 
+      for tic marks on graphs and proper plotting of points).
+
+Description:
+============
+
+  1. PEDIATRIC GROWTH CHARTS:
+	After installation of this patch, graphic pediatric growth charts will be added as a 
+	report on the REPORTS tab in CPRS.  (This does NOT require TMG-CPRS to work.) It 
+	makes use of VA standard HTML type reports.  The internal text of the report includes
+	javascript code that graphs out pediatric patient data.  
+	NOTES:
+	-- For pediatric patients, both HEIGHT and LENGTH must be stored in the
+	   HEIGHT field.  For the purpose of these graphs, it has been assumed that for
+	   age < 2 yrs, that  "HEIGHT" is actually a length. (HEIGHT is a standing stature,
+	   while LENGTH is measured with patient laying flat on table.)
+	-- Head circumference measurements must be stored as a CIRC/GIRTH type vital.
+	-- To print out graphs, right click on the graph and select PRINT from the context
+	   menu.
+	-- We have paid the $99 license fee to the author of the javascript library, and
+	   the author (Josh Gebelein) has assured me that this covers all users of our 
+	   open source release.
+	-- We have tried to create installer code that inserts our growth charts report
+	   in a manner that does not disrupt other reports.  However, if a site has a 
+	   unforseen setup, then a CAC may have to edit this manually:
+		1. Navigate to Fileman menu option XPAR EDIT PARAMETER
+		2. Choose: ORWRP REPORT LIST
+		3. Move the entry for TMG GROWTH CHARTS to the appropriate section
+			for your site.
+
+  2. TEXT OBJECTS TO INCLUDE PERCENTILES
+	Text objects are smart objects that can be dropped into templates in CPRS.
+	When used, they contact the server and return appropriate information.  E.g.
+	|PHONE NUMBER| would return the patient's telephone number.
+
+	The following text objects have been created. They will include a percentile
+	for the measurements (the same percentile that would show up in a growth chart)
+
+        TMG PATIENT BMI                                                         
+        TMG PATIENT HC                                                          
+        TMG PATIENT WT  
+        TMG PATIENT HT   
+
+	E.g.  |TMG PATIENT HT|  resulted in this output 
+	(07/12/2010 @ 10.5 yr) Ht 53 in [134.6 cm], 13rd %tile
+	The date is only added when the vital measurement date is different from the 
+	note date.
+
+
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+  INSTALLATION INSTRUCTIONS:
+  ==========================
+  Users should be logged off the system.  
+  Note: the follow instructions were copied from another KIDS install and modified.  
+  There may be some discrepancies.
+
+  The following are instructions for those using the Packman method:
+  ------------------------------------------------------------------
+  1.  Use the INSTALL/CHECK MESSAGE option on the PackMan menu.
+
+  2.  Review your mapped set.  If any of the routines listed in the
+      ROUTINE SUMMARY section are mapped, they should be removed
+      from the mapped set at this time.
+
+  3.  From the Kernel Installation and Distribution System Menu, select
+      the Installation menu.
+
+  4.  From this menu, you may elect to use the following options
+      (when prompted for INSTALL NAME, enter TMG1-1.0-17:
+          a.  Backup a Transport Global
+          b.  Compare Transport Global to Current System
+          c.  Verify Checksums in Transport Global
+
+  5.  Use the Install Package(s) option and select the package TMG1-1.0-17
+
+  6.  When prompted 'Want KIDS to INHIBIT LOGONs during the install? YES//'
+      respond NO.
+
+  7.  When prompted 'Want to DISABLE Scheduled Options, Menu Options, and
+      Protocols? YES//', respond NO.
+
+  8.  If routines were unmapped as part of step 2, they should be returned
+      to the mapped set once the installation has run to completion.
+
+  9.  (See step 9 below)
+
+  The following are instructions for those loading the patch via Host File System:
+  ---------------------------------------------------------------------------------
+  1.  Navigate the menu option path to reach the Kernel Installation and Distribution
+      System Menu.  Or, the menu option XPD MAIN may be entered directly.
+
+  2.  Next, at the menu displaying:
+          Edits and Distribution ...
+          Utilities ...
+          Installation ...     <---------- pick this one.
+
+  3.  Next, at the menu displaying the options as below, choose each of the options
+      in a step-by-step fashion, in numerical order (i.e. 1, 2, 3 etc.)  Step #1 will
+      prompt the user to enter the file path on the host file system where the source
+      file is stored.  The filename to enter is TMG1-1.0-16.KIDS, but add the
+      appropriate path.  E.g. /tmp/TMG1-1.0-16.KIDS
+
+       1      Load a Distribution
+       2      Verify Checksums in Transport Global
+       3      Print Transport Global
+       4      Compare Transport Global to Current System
+       5      Backup a Transport Global
+       6      Install Package(s)
+              Restart Install of Package(s)
+              Unload a Distribution
+
+  4.  From this menu, you may elect to use the following options
+      (when prompted for INSTALL NAME, enter TMG*1.0*16
+          a.  Backup a Transport Global
+          b.  Compare Transport Global to Current System
+          c.  Verify Checksums in Transport Global
+
+  5.  Use the Install Package(s) option and select the package TMG*1.0*16
+
+  6.  When prompted 'Want KIDS to INHIBIT LOGONs during the install? YES//'
+      respond NO.
+
+  7.  When prompted 'Want to DISABLE Scheduled Options, Menu Options, and
+      Protocols? YES//', respond NO.
+
+  8.  If routines were unmapped as part of step 2, they should be returned
+      to the mapped set once the installation has run to completion.
+
+
+=============================================================================
+User Information:
+Entered By  : TOPPENBERG,KEVIN            Date Entered : 11/22/10
+Completed By: TOPPENBERG,KEVIN            Date Completed: 11/22/10
+Released By : TOPPENBERG,KEVIN            Date Released : 11/22/10
+=============================================================================
+
+Packman Mail Message:
+=====================
+
+$END TXT
